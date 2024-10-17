@@ -2,6 +2,9 @@
 
 if(!defined('ABSPATH')) exit;
 
+// support menu
+add_theme_support('menus');
+
 // disable for posts
 add_filter('use_block_editor_for_post', '__return_false', 10);
 
