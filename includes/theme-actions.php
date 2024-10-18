@@ -5,8 +5,8 @@ if(!defined('ABSPATH'))
 
 
     // Return formatted top-nav menu
-function right_menu_nav() {
-    $menu = wp_get_nav_menu_items('main-menu');
+function left_menu_nav() {
+    $menu = wp_get_nav_menu_items('left-menu');
     $result = [];
     foreach($menu as $item) {
         $my_item = [
@@ -22,7 +22,7 @@ add_action( 'rest_api_init', function() {
     // top-nav menu
     register_rest_route( 'wp/v2', 'left-menu', array(
         'methods' => 'GET',
-        'callback' => 'right_menu_nav',
+        'callback' => 'left_menu_nav',
     ) );
 });
 
