@@ -18,3 +18,4 @@ add_filter('use_block_editor_for_post_type', '__return_false', 10);
 // require
 
 require_once THEME_DIR_PATH . '/includes/theme-actions.php';
+require_once THEME_DIR_PATH . '/includes/theme-filters.php';
