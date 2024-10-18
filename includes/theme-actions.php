@@ -34,7 +34,6 @@ function theme_custom_logo_setup() {
         'width'       => 400,     // Set desired logo width
         'flex-height' => true,    // Allow flexible height
         'flex-width'  => true,    // Allow flexible width
-        'header-text' => array('site-title', 'site-description'), // Header text you want to display
     ));
 }
 add_action('after_setup_theme', 'theme_custom_logo_setup');
