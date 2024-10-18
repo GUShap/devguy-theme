@@ -37,3 +37,9 @@ function theme_custom_logo_setup() {
     ));
 }
 add_action('after_setup_theme', 'theme_custom_logo_setup');
+
+
+function add_cors_http_header() {
+    header("Access-Control-Allow-Origin: *");
+}
+add_action('init', 'add_cors_http_header');
