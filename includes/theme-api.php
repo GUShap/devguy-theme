@@ -52,7 +52,7 @@ function get_custom_settings(WP_REST_Request $request) {
     $allowed_settings = array(
         'site_title' => get_bloginfo('name'),
         'site_description' => get_bloginfo('description'),
-        'site_logo' => wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full'),
+        'site_logo' => wp_get_attachment_image(get_theme_mod('custom_logo'), 'full'),
         'admin_email' => get_option('admin_email'),
     );
 
