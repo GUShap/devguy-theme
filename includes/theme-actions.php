@@ -3,31 +3,7 @@
 if(!defined('ABSPATH'))
     exit;
 
-
-    // Return formatted top-nav menu
-function left_menu_nav() {
-    $menu = wp_get_nav_menu_items('left-menu');
-    $result = [];
-    foreach($menu as $item) {
-        $my_item = [
-            'name' => $item->title,
-            'href' => $item->url
-        ];
-        $result[] = $my_item;
-    }
-    return $result;
-}
-// add endpoint
-add_action( 'rest_api_init', function() {
-    // top-nav menu
-    register_rest_route( 'wp/v2', 'left-menu', array(
-        'methods' => 'GET',
-        'callback' => 'left_menu_nav',
-    ) );
-});
-
 //  support logo
-
 function theme_custom_logo_setup() {
     add_theme_support('custom-logo', array(
         'height'      => 100,     // Set desired logo height
