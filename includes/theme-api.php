@@ -69,26 +69,16 @@ function get_custom_settings(WP_REST_Request $request)
         ), 400);
     }
 }
+// 
 
-function get_site_logo_data()
+add_action("rest_api_init", function () {
+    register_rest_route("options", "/all", [
+        "methods" => "GET",
+        "callback" => "acf_options_route",
+    ]);
+});
+
+function acf_options_route()
 {
-    $logo_id = get_theme_mod('custom_logo');
-    $image_data = [];
-
-    if (!$logo_id)
-        return [];
-    // Get the attachment post
-    $attachment = get_post($logo_id);
-
-    // Check if the attachment exists
-    // if ($attachment)
-    //     return [];
-    // Prepare dynamic image attributes
-    $image_data['url'] = wp_get_attachment_url($logo_id); // Get the image URL
-    $image_data['alt'] = get_post_meta($logo_id, '_wp_attachment_image_alt', true); // Get alt text
-    $image_data['title'] = $attachment->post_title; // Get title from post title
-    $image_data['class'] = 'main-site-logo'; // Optionally set a dynamic class
-
-    // Return the image data
-    return $image_data;
+    return get_fields('options');
 }
