@@ -91,9 +91,9 @@ function acf_options_route(WP_REST_Request $request)
 {
 
     $setting = $request->get_param('setting');
-    $options = ($setting == 'all') ? get_fields('options') : get_field($setting, 'options');
-    if (!empty($options)) {
-        return new WP_REST_Response($options, 200);
+    $logo_id = ($setting == 'all') ? get_fields('options') : get_field($setting, 'options');
+    if (!empty($logo_id)) {
+        return new WP_REST_Response(get_image_data($logo_id), 200);
     } else {
         return new WP_REST_Response("No options found", 404);
     }
