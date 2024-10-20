@@ -76,6 +76,14 @@ add_action("rest_api_init", function () {
         "methods" => "GET",
         "callback" => "acf_options_route",
         'permission_callback' => '__return_true', // Allows public access (modify this if needed)
+        'args' => array(
+            'setting' => array(
+                'required' => true,
+                'validate_callback' => function ($param, $request, $key) {
+                    return is_string($param); // Ensure it's a string
+                }
+            )
+        )
     ]);
 });
 
