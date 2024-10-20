@@ -81,8 +81,8 @@ function get_site_logo_data()
     $attachment = get_post($logo_id);
 
     // Check if the attachment exists
-    if ($attachment)
-        return [];
+    // if ($attachment)
+    //     return [];
     // Prepare dynamic image attributes
     $image_data['url'] = wp_get_attachment_url($logo_id); // Get the image URL
     $image_data['alt'] = get_post_meta($logo_id, '_wp_attachment_image_alt', true); // Get alt text
