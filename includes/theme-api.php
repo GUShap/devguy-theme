@@ -72,7 +72,7 @@ function get_custom_settings(WP_REST_Request $request)
 // 
 
 add_action("rest_api_init", function () {
-    register_rest_route("'wp/v2", "/options", [
+    register_rest_route("wp/v2", "/options", [
         "methods" => "GET",
         "callback" => "acf_options_route",
         'permission_callback' => '__return_true', // Allows public access (modify this if needed)
