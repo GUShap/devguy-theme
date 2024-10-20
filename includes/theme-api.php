@@ -82,9 +82,9 @@ add_action("rest_api_init", function () {
 function acf_options_route(WP_REST_Request $request)
 {
 
-    $params = $request->get_params();
+    $setting = $request->get_param('setting');
     $options = '';
-    if ($params['settings'] == 'all') {
+    if ($setting == 'all') {
         $options = get_fields('options');
     }
     if (!empty($options)) {
