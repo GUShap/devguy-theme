@@ -91,10 +91,7 @@ function acf_options_route(WP_REST_Request $request)
 {
 
     $setting = $request->get_param('setting');
-    $options = '';
-    if ($setting == 'all') {
-        $options = get_fields('options');
-    }
+    $options = ($setting == 'all') ? get_fields('options') : get_field($setting, 'options');
     if (!empty($options)) {
         return new WP_REST_Response($options, 200);
     } else {
