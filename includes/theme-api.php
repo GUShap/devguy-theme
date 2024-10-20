@@ -78,7 +78,12 @@ add_action("rest_api_init", function () {
     ]);
 });
 
-function acf_options_route()
+function acf_options_route(WP_REST_Request $request)
 {
-    return get_fields('options');
+    $options = get_fields('options');
+    if (!empty($options)) {
+        return new WP_REST_Response($options, 200);
+    } else {
+        return new WP_REST_Response("No options found", 404);
+    }
 }
