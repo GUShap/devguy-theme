@@ -72,15 +72,21 @@ function get_custom_settings(WP_REST_Request $request)
 // 
 
 add_action("rest_api_init", function () {
-    register_rest_route("options", "/all", [
+    register_rest_route("'wp/v2", "/options", [
         "methods" => "GET",
         "callback" => "acf_options_route",
+        'permission_callback' => '__return_true', // Allows public access (modify this if needed)
     ]);
 });
 
 function acf_options_route(WP_REST_Request $request)
 {
-    $options = get_fields('options');
+
+    $params = $request->get_params();
+    $options = '';
+    if ($params['settings'] == 'all') {
+        $options = get_fields('options');
+    }
     if (!empty($options)) {
         return new WP_REST_Response($options, 200);
     } else {
