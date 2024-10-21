@@ -15,7 +15,7 @@ add_action('rest_api_init', function () {
 function get_media_file(WP_REST_Request $request)
 {
     $id = $request->get_param('id');
-echo $id;
+// echo $id;
     // Check if the media exists
     $media_post = get_post($id);
     // if (!$media_post || $media_post->post_type !== 'attachment') {
