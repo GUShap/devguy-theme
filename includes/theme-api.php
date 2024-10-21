@@ -3,7 +3,42 @@
 if (!defined('ABSPATH'))
     exit;
 
-// add endpoint
+// add endpoint to get media file by id
+add_action('rest_api_init', function () {
+    register_rest_route('wp/v2', '/media/(?P<id>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_media_file',
+        'permission_callback' => '__return_true', // Allows public access (modify this if needed)
+    ));
+});
+
+function get_media_file(WP_REST_Request $request)
+{
+    $id = $request['id'];
+    $media = get_post($id);
+    if ($media) {
+        $media_data = [
+            'id' => $media->ID,
+            'title' => $media->post_title,
+            'url' => wp_get_attachment_url($id),
+            'alt' => get_post_meta($id, '_wp_attachment_image_alt', true),
+            'caption' => $media->post_excerpt,
+            'description' => $media->post_content,
+            'mime_type' => $media->post_mime_type,
+            'media_type' => $media->post_type,
+            'date' => $media->post_date,
+            'modified' => $media->post_modified,
+            'author' => $media->post_author,
+            'status' => $media->post_status,
+            'link' => get_permalink($id),
+        ];
+        return new WP_REST_Response($media_data, 200);
+    } else {
+        return new WP_REST_Response("No media found", 404);
+    }
+}
+
+// Nav Endpoint
 add_action('rest_api_init', function () {
     // top-nav menu
     register_rest_route('wp/v2', 'left-menu', array(
