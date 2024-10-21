@@ -42,9 +42,9 @@ echo $id;
     // );
 
     if (!empty($media_post)) {
-        return new WP_REST_Response($media_post, 200);
+        // return new WP_REST_Response($media_post, 200);
     } else {
-        return new WP_REST_Response("No media found", 404);
+        // return new WP_REST_Response("No media found", 404);
     }
 }
 
