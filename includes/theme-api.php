@@ -15,7 +15,32 @@ add_action('rest_api_init', function () {
 function get_media_file(WP_REST_Request $request)
 {
     $id = $request->get_param('id');
-    $media_data = wp_get_attachment_image( 'full', $id );
+
+    // Check if the media exists
+    $media_post = get_post($id);
+    if (!$media_post || $media_post->post_type !== 'attachment') {
+        return new WP_REST_Response("No media found", 404);
+    }
+
+    // Get media file details
+    $media_url = wp_get_attachment_url($id);
+    $media_meta = wp_get_attachment_metadata($id);
+    $media_alt = get_post_meta($id, '_wp_attachment_image_alt', true);
+    $media_title = get_the_title($id);
+    $media_caption = wp_get_attachment_caption($id);
+    $media_description = $media_post->post_content;
+
+    // Structure response
+    $media_data = array(
+        'id'            => $id,
+        'title'         => $media_title,
+        'alt'           => $media_alt,
+        'url'           => $media_url,
+        'meta'          => $media_meta,
+        'caption'       => $media_caption,
+        'description'   => $media_description,
+    );
+
     if ($media_data) {
         return new WP_REST_Response($media_data, 200);
     } else {
