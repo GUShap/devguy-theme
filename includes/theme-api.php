@@ -15,7 +15,7 @@ add_action('rest_api_init', function () {
 function get_media_file(WP_REST_Request $request)
 {
     $id = $request->get_param('id');
-    $media_data = wp_get_attachment_image( $id, 'full');
+    $media_data = get_image_data( $id);
     if ($media_data) {
         return new WP_REST_Response($media_data, 200);
     } else {
