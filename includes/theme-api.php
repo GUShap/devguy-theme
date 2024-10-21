@@ -14,24 +14,9 @@ add_action('rest_api_init', function () {
 
 function get_media_file(WP_REST_Request $request)
 {
-    $id = $request['id'];
-    $media = get_post($id);
-    if ($media) {
-        $media_data = [
-            'id' => $media->ID,
-            'title' => $media->post_title,
-            'url' => wp_get_attachment_url($id),
-            'alt' => get_post_meta($id, '_wp_attachment_image_alt', true),
-            'caption' => $media->post_excerpt,
-            'description' => $media->post_content,
-            'mime_type' => $media->post_mime_type,
-            'media_type' => $media->post_type,
-            'date' => $media->post_date,
-            'modified' => $media->post_modified,
-            'author' => $media->post_author,
-            'status' => $media->post_status,
-            'link' => get_permalink($id),
-        ];
+    $id = $request->get_param('id');
+    $media_data = wp_get_attachment_image( 'full', $id );
+    if ($media_data) {
         return new WP_REST_Response($media_data, 200);
     } else {
         return new WP_REST_Response("No media found", 404);
