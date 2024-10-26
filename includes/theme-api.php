@@ -113,11 +113,18 @@ function acf_options_route(WP_REST_Request $request)
     $setting = $request->get_param('setting');
     $logo_id = '';
     $res_data = [];
-    if ($setting == 'all') {
-
-    } else {
-        $logo_id = get_field($setting, 'option');
-        $res_data[$setting] = get_image_data($logo_id);
+    switch ($setting) {
+        case 'all':
+            $logos_ids = ['blue_logo', 'white_logo', 'dark_logo'];
+            foreach ($logos_ids as $logo) {
+                $logo_id = get_field($logo, 'option');
+                $res_data[$logo] = get_image_data($logo_id);
+            }
+            break;
+        default:
+            $logo_id = get_field($setting, 'option');
+            $res_data[$setting] = get_image_data($logo_id);
+            break;
     }
     if (!empty($res_data)) {
         return new WP_REST_Response($res_data, 200);
