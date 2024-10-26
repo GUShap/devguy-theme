@@ -116,7 +116,7 @@ function acf_options_route(WP_REST_Request $request)
     if ($setting == 'all') {
 
     } else {
-        $logo_id = get_field($setting, 'option');
+        $logo_id = get_field($setting, 'options');
         $res_data[$setting] = get_image_data($logo_id);
     }
     if (!empty($res_data)) {
