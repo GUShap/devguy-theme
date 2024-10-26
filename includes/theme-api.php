@@ -15,7 +15,7 @@ add_action('rest_api_init', function () {
 function get_media_file(WP_REST_Request $request)
 {
     $id = $request->get_param('id');
-    $media_data = get_image_data( $id);
+    $media_data = get_image_data($id);
     if ($media_data) {
         return new WP_REST_Response($media_data, 200);
     } else {
@@ -111,10 +111,16 @@ function acf_options_route(WP_REST_Request $request)
 {
 
     $setting = $request->get_param('setting');
-    $logo_id = ($setting == 'all') ? get_fields('options') : get_field($setting, 'option');
-    if (!empty($logo_id)) {
-        return new WP_REST_Response(get_fields(35), 200);
-        // return new WP_REST_Response(get_image_data($logo_id), 200);
+    $logo_id = '';
+    $res_data = [];
+    if ($setting == 'all') {
+
+    } else {
+        $logo_id = get_field($setting, 'option');
+        $res_data[$setting] = get_image_data($logo_id);
+    }
+    if (!empty($res_data)) {
+        return new WP_REST_Response(get_image_data($res_data), 200);
     } else {
         return new WP_REST_Response("No options found", 404);
     }
