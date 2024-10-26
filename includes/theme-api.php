@@ -111,7 +111,7 @@ function acf_options_route(WP_REST_Request $request)
 {
 
     $setting = $request->get_param('setting');
-    $logo_id = ($setting == 'all') ? get_fields('options') : get_field($setting, 'options');
+    $logo_id = ($setting == 'all') ? get_fields('options') : get_field($setting, 'option');
     if (!empty($logo_id)) {
         return new WP_REST_Response(get_image_data($logo_id), 200);
     } else {
